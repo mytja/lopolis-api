@@ -1,6 +1,2 @@
-beautifulsoup4>=4.8.2
-Flask-Cors>=3.0.8
-Flask>=1.1.1
-requests>=2.22.0
-user-agents>=2.0
-gunicorn>=20.0.4
+beautifulsoup4
+httpx

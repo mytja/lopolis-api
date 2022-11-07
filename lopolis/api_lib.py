@@ -116,8 +116,8 @@ class LoPolisAPI:
                 else:
                     empty = True
 
-            if not empty:
-                menu[date].append(day_output)
+            #if not empty:
+            menu[date].append(day_output)
 
         return menu
 
@@ -255,10 +255,14 @@ class LoPolisAPI:
 
         for i, (k, v) in enumerate(choices.items()):
             full_date = k
+
             for meal in v:
                 id = meal["id"]
                 local_id = meal["local_id"]
-                disabled = meal["readonly"]
+                try:
+                    disabled = meal["readonly"]
+                except:
+                    disabled = True
 
                 selected = ""
                 for menu in meal["menu_options"]:
@@ -273,5 +277,7 @@ class LoPolisAPI:
                 json_data[f"{item}ABO_PrijavaID"] = id
                 json_data[f"{item}ReadOnly"] = "True" if disabled else "False"
 
+        #print(json_data)
         response = await self.client.post(f"{HOST}/Prehrana/Prednarocanje", data=json_data)
+        #print(response.text)
         return response.status_code
